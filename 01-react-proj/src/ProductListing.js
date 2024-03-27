@@ -1,8 +1,11 @@
 import { useContext } from "react";
+// import { useNavigate } from 'react-router-dom';
 import { ProductContext } from "./ProductContext";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 export default function Productlisting() {
     const context = useContext(ProductContext);
+    // const navigate = useNavigate();
     return (
         <div>
             <table className="table">
@@ -25,6 +28,20 @@ export default function Productlisting() {
                             <td>{p.exp}</td>
                             <td>{p.category}</td>
                             <td>{p.uom}</td>
+                            <td>
+                                {/* <button 
+                                    className="btn btn-primary me-2" 
+                                    onClick={() => navigate('/' + p.product_id)}
+                                >
+                                    Edit
+                                </button> */}
+                                {/* <button 
+                                    className="btn btn-danger" 
+                                    onClick={() => handleDelete(p.product_id)}
+                                >
+                                    Delete
+                                </button> */}
+                            </td>
                         </tr>
                     ))}
                 </tbody>
