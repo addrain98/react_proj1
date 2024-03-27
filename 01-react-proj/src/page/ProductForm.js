@@ -1,6 +1,7 @@
 import { useState } from "react";
+import ProductListingPage from "./ProductListingPage";
 
-export default function ProductForm() {
+export default function ProductForm(props) {
     const [formState, setFormState] = useState({
         "name": '',
         "price": 0,
@@ -10,13 +11,24 @@ export default function ProductForm() {
         "uom": ''
     })
 
+    const handleFormField = (event) => {
+        setFormState({
+            ...formState,
+            [event.target.name]: event.target.value
+        })
+    }
+    const submitForm = (event) => {
+        props.onSubmit(formState)
+    }
+
     return <>
         <div>
             <label> Product Name</label>
             <input type="text"
-                   name="product"
-                   value={formState.product}
+                   name="name"
+                   value={formState.name}
                    className = "form-control"
+                   onChange={handleFormField}
             />
         </div>
         <div>
@@ -25,15 +37,17 @@ export default function ProductForm() {
                    name="price"
                    value={formState.price}
                    className = "form-control"
+                   onChange={handleFormField}
             />
         </div>
         <div>
             <label> Product Description</label>
-            <input type="textarea"
+            <textarea
                    name="description"
                    value={formState.description}
                    className = "form-control"
-            />
+                   onChange={handleFormField}
+            ></textarea>
         </div>
         <div>
             <label> Expiry Date </label>
@@ -41,6 +55,7 @@ export default function ProductForm() {
                    name="exp"
                    value={formState.exp}
                    className = "form-control"
+                   onChange={handleFormField}
             />
         </div>
         <div>
@@ -49,6 +64,7 @@ export default function ProductForm() {
                    name="category"
                    value={formState.category}
                    className = "form-control"
+                   onChange={handleFormField}
             />
         </div>
         <div>
@@ -57,8 +73,11 @@ export default function ProductForm() {
                    name="uom"
                    value={formState.uom}
                    className = "form-control"
+                   onChange={handleFormField}
             />
         </div>
-        <button class = "btn btn-primary mt-3">Add Product</button>
+        <button className = "btn btn-primary mt-3"
+            onClick = {submitForm}
+        >Add Product</button>
     </>
 }

@@ -41,6 +41,10 @@ export default function ProductContextData(props) {
     const context = {
         getProducts: () => {
             return products;
+        },
+        addProduct(newProduct) {
+            newProduct._id = Math.floor(Math.random() * 10000 + 9999);
+            setProducts([...products, newProduct]);
         }
     }
     return <ProductContext.Provider value={context}>
