@@ -3,12 +3,12 @@ import ProductListingPage from "./ProductListingPage";
 
 export default function ProductForm(props) {
     const [formState, setFormState] = useState({
-        "name": '',
-        "price": 0,
-        "description": '',
-        "exp": new Date,
-        "category": '',
-        "uom": ''
+        "name": props.initialValue?.name ?? '',
+        "price": props.initialValue?.price ?? 0,
+        "description": props.initialValue?.description ?? '',
+        "exp": props.initialValue?.exp ?? new Date,
+        "category": props.initialValue?.category ?? '',
+        "uom": props.initialValue?.uom ?? ''
     })
 
     const handleFormField = (event) => {
@@ -78,6 +78,6 @@ export default function ProductForm(props) {
         </div>
         <button className = "btn btn-primary mt-3"
             onClick = {submitForm}
-        >Add Product</button>
+        >{props.label ?? "Submit"}</button>
     </>
 }

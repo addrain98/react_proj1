@@ -31,7 +31,7 @@ export default function Productlisting() {
                             <td>
                                 <button 
                                     className="btn btn-primary me-2" 
-                                    onClick={() => navigate('/' + p.product_id)}
+                                    onClick={() => navigate('/edit/' + p.product_id)}
                                 >
                                     Edit
                                 </button>

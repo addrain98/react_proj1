@@ -45,6 +45,17 @@ export default function ProductContextData(props) {
         addProduct(newProduct) {
             newProduct._id = Math.floor(Math.random() * 10000 + 9999);
             setProducts([...products, newProduct]);
+        },
+        getProductId(productId) {
+            return products.find(p =>p.product_id === parseInt(productId));
+        },
+        updateProductById(productId, newProduct) {
+            newProduct.product_id = parseInt(productId)
+            const index = products.findIndex(p => p.product_id === parseInt(productId))
+            const left = [...products.slice(0,index)];
+            const right = [...products.slice(index+1)];
+            const modified = [...left,newProduct, ...right];
+            setProducts(modified)
         }
     }
     return <ProductContext.Provider value={context}>

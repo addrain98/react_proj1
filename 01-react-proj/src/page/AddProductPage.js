@@ -9,7 +9,9 @@ export default function AddProductPage() {
         <h1>
             Add Product
         </h1>
-        <ProductForm onSubmit = {(product) => {
+        <ProductForm 
+            label = "Add Product"
+            onSubmit = {(product) => {
             context.addProduct(product);
             navigate ('/');
         }}/>
