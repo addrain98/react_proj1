@@ -73,7 +73,6 @@ export default function ProductContextData(props) {
             const left = [...products.slice(0, index)];
             const right = [...products.slice(index + 1)];
             const modified = [...left, newProduct, ...right];
-            console.log(modified)
             setProducts(modified)
         },
 
