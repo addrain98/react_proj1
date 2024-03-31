@@ -7,8 +7,8 @@ export default function ProductForm(props) {
         "price": props.initialValue?.price ?? 0,
         "description": props.initialValue?.description ?? '',
         "exp": props.initialValue?.exp ?? new Date,
-        "category": props.initialValue?.category ?? '',
-        "uom": props.initialValue?.uom ?? ''
+        "uom": props.initialValue?.uom ?? '',
+        "category": props.initialValue?.category ?? ''
     })
 
     const handleFormField = (event) => {
@@ -59,19 +59,19 @@ export default function ProductForm(props) {
             />
         </div>
         <div>
-            <label> Category </label>
+            <label> Unit of Measure </label>
             <input type="text"
-                   name="category"
-                   value={formState.category}
+                   name="uom"
+                   value={formState.uom}
                    className = "form-control"
                    onChange={handleFormField}
             />
         </div>
         <div>
-            <label> Unit of Measure </label>
+            <label> Category </label>
             <input type="text"
-                   name="uom"
-                   value={formState.uom}
+                   name="category"
+                   value={formState.category}
                    className = "form-control"
                    onChange={handleFormField}
             />

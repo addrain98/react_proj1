@@ -17,45 +17,66 @@ export default function ProductContextData(props) {
             return products;
         },
         async addProduct(newProduct) {
-            let { exp } = newProduct;
-        
-            // Format `exp` if it exists, otherwise set it to null
+            let { exp } = newProduct; // Destructure exp from newProduct for potential modification
+
+            // Check if exp exists and format it
             if (exp) {
                 const expDate = new Date(exp);
                 const year = expDate.getFullYear();
-                const month = ('0' + (expDate.getMonth() + 1)).slice(-2);
-                const day = ('0' + expDate.getDate()).slice(-2);
-                exp = `${year}-${month}-${day}`;
+                const month = ('0' + (expDate.getMonth() + 1)).slice(-2); // getMonth() is zero-based; add 1 to compensate and pad with leading 0
+                const day = ('0' + expDate.getDate()).slice(-2); // pad with leading 0
+                exp = `${year}-${month}-${day}`; // reassign exp in yyyy/mm/dd format
             } else {
                 exp = null; // Explicitly set exp to null if it's undefined or not provided
             }
-        
-            try {
-                const response = await axios.post(BASE_API_URL + "/products", {
-                    ...newProduct,
-                    price: parseInt(newProduct.price),
-                    exp // Use the formatted `exp` or null
-                });
-                newProduct._id = response.data.insertedId;
-                setProducts([...products, newProduct]);
-            } catch (error) {
-                console.error("Error adding product:", error);
-                // Handle error appropriately
-            }
+            const response = await axios.post(BASE_API_URL + "/products", {
+                ...newProduct,
+                name: newProduct.name,
+                price: parseInt(newProduct.price),
+                description: newProduct.description,
+                exp: exp ? exp : newProduct.exp,
+                uom: newProduct.uom,
+                category: newProduct.category,
+            })
+            newProduct._id = response.data.insertedId;
+            setProducts([...products, newProduct]);
         },
         getProductId(productId) {
             return products.find(p => p.product_id === parseInt(productId));
         },
+
         async updateProductById(productId, newProduct) {
-            const response = await axios.put(BASE_API_URL + "/products/" + productId)
-            newProduct.product_id = parseInt(productId)
-            const index = products.findIndex(p => p.product_id === parseInt(productId))
+            let { exp } = newProduct; // Destructure exp from newProduct for potential modification
+
+            // Check if exp exists and format it
+            if (exp) {
+                const expDate = new Date(exp);
+                const year = expDate.getFullYear();
+                const month = ('0' + (expDate.getMonth() + 1)).slice(-2); // getMonth() is zero-based; add 1 to compensate and pad with leading 0
+                const day = ('0' + expDate.getDate()).slice(-2); // pad with leading 0
+                exp = `${year}-${month}-${day}`; // reassign exp in yyyy/mm/dd format
+            } else {
+                exp = null; // Explicitly set exp to null if it's undefined or not provided
+            }
+            const response = await axios.put(BASE_API_URL + "/products/" + productId, {
+                ...newProduct,
+                name: newProduct.name,
+                price: parseInt(newProduct.price),
+                description: newProduct.description,
+                exp: exp ? exp : newProduct.exp,
+                uom: newProduct.uom,
+                category: newProduct.category
+            })
+
+            newProduct._id = parseInt(productId)
+            const index = products.findIndex(p => p._id === parseInt(productId))
             const left = [...products.slice(0, index)];
             const right = [...products.slice(index + 1)];
             const modified = [...left, newProduct, ...right];
             console.log(modified)
             setProducts(modified)
         },
+
         async deleteProductById(productId) {
             try {
                 const response = await axios.delete(BASE_API_URL + "/products/" + productId);

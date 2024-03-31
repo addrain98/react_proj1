@@ -30,8 +30,8 @@ export default function Productlisting() {
                         <th>Price</th>
                         <th>Description</th>
                         <th>Expiration Date</th>
-                        <th>Category</th>
                         <th>Unit of Measure</th>
+                        <th>Category</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,8 +41,8 @@ export default function Productlisting() {
                             <td>${p.price}</td>
                             <td>{p.description}</td>
                             <td>{p.exp}</td>
-                            <td>{p.category}</td>
                             <td>{p.uom}</td>
+                            <td>{p.category}</td>
                             <td>
                                 <button
                                     className="btn btn-primary me-2"
