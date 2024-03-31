@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { ProductContext } from "./ProductContext";
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -6,6 +6,21 @@ import "bootstrap/dist/css/bootstrap.min.css"
 export default function Productlisting() {
     const context = useContext(ProductContext);
     const navigate = useNavigate();
+    const [flashMessage, setFlashMessage] = useState('');
+    const [showFlash, setShowFlash] = useState(false);
+
+    // Function to handle product deletion with confirmation and flash message
+    const handleDelete = (productId) => {
+        const isConfirmed = window.confirm("Are you sure you want to delete this item?");
+        if (isConfirmed) {
+            context.deleteProductById(productId, () => {
+                // Callback function to display flash message
+                setFlashMessage("Product successfully deleted.");
+                setShowFlash(true);
+                setTimeout(() => setShowFlash(false), 3000); // Hide flash message after 3 seconds
+            });
+        }
+    };
     return (
         <div>
             <table className="table">
@@ -29,18 +44,18 @@ export default function Productlisting() {
                             <td>{p.category}</td>
                             <td>{p.uom}</td>
                             <td>
-                                <button 
-                                    className="btn btn-primary me-2" 
+                                <button
+                                    className="btn btn-primary me-2"
                                     onClick={() => navigate('/edit/' + p.product_id)}
                                 >
                                     Edit
                                 </button>
-                                {/* <button 
-                                    className="btn btn-danger" 
+                                <button
+                                    className="btn btn-danger"
                                     onClick={() => handleDelete(p.product_id)}
                                 >
                                     Delete
-                                </button> */}
+                                </button>
                             </td>
                         </tr>
                     ))}

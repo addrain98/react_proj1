@@ -56,6 +56,14 @@ export default function ProductContextData(props) {
             const right = [...products.slice(index+1)];
             const modified = [...left,newProduct, ...right];
             setProducts(modified)
+        },
+        deleteProductById(productId) {
+            console.log("Attempting to delete product with ID:", productId);
+            let index = products.findIndex(p => p.product_id === parseInt(productId))
+            let modified = [...products.slice(0, index), 
+                ...products.slice(index+1)];
+            console.log("Modified products array:", modified);
+            setProducts(modified)
         }
     }
     return <ProductContext.Provider value={context}>
