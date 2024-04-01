@@ -68,8 +68,8 @@ export default function ProductContextData(props) {
                 category: newProduct.category
             })
 
-            newProduct._id = parseInt(productId)
-            const index = products.findIndex(p => p._id === parseInt(productId))
+            newProduct.product_id = productId
+            const index = products.findIndex(p => p.product_id === parseInt(productId))
             const left = [...products.slice(0, index)];
             const right = [...products.slice(index + 1)];
             const modified = [...left, newProduct, ...right];
